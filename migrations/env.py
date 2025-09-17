@@ -5,8 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from brax.models import table_registry
-from brax.settings import Settings
+from pytodo.models import table_registry
+from pytodo.settings import Settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

@@ -7,10 +7,10 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
-from brax.app import app
-from brax.database import get_session
-from brax.models import User, table_registry
-from brax.security import get_password_hash
+from pytodo.app import app
+from pytodo.database import get_session
+from pytodo.models import User, table_registry
+from pytodo.security import get_password_hash
 
 
 @pytest.fixture
@@ -61,7 +61,7 @@ def user(session):
 @pytest.fixture
 def token(client, user):
     response = client.post(
-        '/token',
+        '/auth/token',
         data={'username': user.email, 'password': user.clean_password},
     )
 

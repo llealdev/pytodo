@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from brax.models import User
+from pytodo.models import User
 
 
 def test_create_user(session):
