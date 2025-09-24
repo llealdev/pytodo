@@ -8,7 +8,13 @@ from sqlalchemy.orm import Session
 
 from pytodo.database import get_session
 from pytodo.models import User
-from pytodo.schemas import FilterPage, Message, UserList, UserPublic, UserSchema
+from pytodo.schemas import (
+    FilterPage,
+    Message,
+    UserList,
+    UserPublic,
+    UserSchema,
+)
 from pytodo.security import get_current_user, get_password_hash
 
 router = APIRouter(prefix='/users', tags=['users'])
