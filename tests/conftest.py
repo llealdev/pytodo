@@ -44,8 +44,8 @@ async def session():
         await conn.run_sync(table_registry.metadata.drop_all)
 
 
-@pytest.fixture
-def user(session):
+@pytest_asyncio.fixture
+async def user(session):
     password = 'testtest'
     user = User(
         username='Teste',
@@ -54,8 +54,8 @@ def user(session):
     )
 
     session.add(user)
-    session.commit()
-    session.refresh(user)
+    await session.commit()
+    await session.refresh(user)
 
     user.clean_password = password
 
@@ -74,17 +74,17 @@ def token(client, user):
 
 @contextmanager
 def _mock_db_time(*, model, time=datetime(2024, 1, 1)):
-    def fake_time_hook(mapper, connection, target):
+    def fake_time_handler(mapper, connection, target):
         if hasattr(target, 'created_at'):
             target.created_at = time
-        if hasattr(target, 'update_at'):
-            target.update_ate = time
+        if hasattr(target, 'updated_at'):
+            target.updated_at = time
 
-    event.listen(model, 'before_insert', fake_time_hook)
+    event.listen(model, 'before_insert', fake_time_handler)
 
     yield time
 
-    event.remove(model, 'before_insert', fake_time_hook)
+    event.remove(model, 'before_insert', fake_time_handler)
 
 
 @pytest.fixture

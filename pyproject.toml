@@ -56,3 +56,5 @@ pre_test = 'task lint'
 test = 'pytest -s -x --cov=brax -vv'
 post_test = 'coverage html'
 
+[tool.coverage.run]
+concurrency = ["thread","greenlet"]
