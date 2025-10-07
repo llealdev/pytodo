@@ -29,6 +29,8 @@ pytest-cov = "^6.2.1"
 taskipy = "^1.14.1"
 ruff = "^0.12.8"
 pytest-asyncio = "^1.2.0"
+factory-boy = "^3.3.3"
+freezegun = "^1.5.5"
 
 [tool.ruff]
 line-length = 79
@@ -44,8 +46,8 @@ quote-style = 'single'
 
 [tool.pytest.ini_options]
 pythonpath = "."
-addpots = '-p no:warnings'
-asyncio_default_fixture_loop_scope= 'function'
+addopts = "-p no:warnings --cov=pytodo --cov-report=term-missing"
+asyncio_default_fixture_loop_scope = 'function'
 
 [tool.taskipy.tasks]
 lint = 'ruff check'
