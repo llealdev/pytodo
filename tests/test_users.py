@@ -52,6 +52,7 @@ def test_update_user(client, user, token):
         'id': user.id,
     }
 
+
 def test_update_integrity_error(client, user, other_user, token):
     response_update = client.put(
         f'/users/{user.id}',
@@ -67,6 +68,7 @@ def test_update_integrity_error(client, user, other_user, token):
     assert response_update.json() == {
         'detail': 'Username or Email already exists'
     }
+
 
 def test_update_with_wrong_user(client, other_user, token):
     response = client.put(

@@ -10,9 +10,9 @@ from pytodo.database import get_session
 from pytodo.models import User
 from pytodo.schemas import Token
 from pytodo.security import (
-     create_access_token, 
-     get_current_user,
-     verify_password,
+    create_access_token,
+    get_current_user,
+    verify_password,
 )
 
 router = APIRouter(prefix='/auth', tags=['auth'])
@@ -20,6 +20,7 @@ router = APIRouter(prefix='/auth', tags=['auth'])
 OAuth2Form = Annotated[OAuth2PasswordRequestForm, Depends()]
 _Session = Annotated[AsyncSession, Depends(get_session)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
+
 
 @router.post('/token', response_model=Token)
 async def login_for_access_token(form_data: OAuth2Form, session: _Session):
@@ -42,6 +43,7 @@ async def login_for_access_token(form_data: OAuth2Form, session: _Session):
     access_token = create_access_token(data={'sub': user.email})
 
     return {'access_token': access_token, 'token_type': 'bearer'}
+
 
 @router.post('/refresh_token', response_model=Token)
 async def test_refresh_token(user: CurrentUser):

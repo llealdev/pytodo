@@ -66,7 +66,7 @@ async def get_current_user(
     except DecodeError:
         raise credentials_exception
     except ExpiredSignatureError:
-        raise ExpiredSignatureError
+        raise credentials_exception
 
     user = await session.scalar(
         select(User).where(User.email == subject_email)
