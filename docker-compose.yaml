@@ -1,0 +1,29 @@
+services:
+  pytodo_database:
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/pytodo_database
+    ports:
+      - "5430:5430"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  pytodo_app:
+    image: pytodo
+    entrypoint: ./entrypoint.sh
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pytodo_database
+    env_file:
+      - .env
+
+volumes:
+  pgdata:
+    

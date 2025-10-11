@@ -3,6 +3,7 @@ from http import HTTPStatus
 import factory.fuzzy
 import pytest
 from sqlalchemy import select
+from sqlalchemy.exc import DataError
 
 from pytodo.models import Todo, TodoState, User
 
@@ -248,9 +249,8 @@ async def test_create_todo_error(session, user: User):
     )
 
     session.add(todo)
-    await session.commit()
 
-    with pytest.raises(LookupError):
+    with pytest.raises(DataError):
         await session.scalar(select(Todo))
 
 
